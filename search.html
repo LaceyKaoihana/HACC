@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+
+        h1{
+            margin-top: -10px;      
+            text-align: center;    
+        }
+
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 35px;
+        }
+
+
+        .filters label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+
+        .filters input {
+            margin-bottom: 10px;
+        }
+
+
+        .results {
+            margin-top: 20px;
+        }
+
+
+        .results ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+
+        .results li {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 5px;
+        }
+
+
+        .button{
+            width: 60px;
+            height: 20px;
+        }
+
+
+        .back-button {
+            display: flex;
+            color: #007bff;
+            text-decoration: none;
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #4CAF50;
+            color: white;
+            justify-content: center;
+            text-align: center;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            width: 60px;
+            height: 30px;
+            padding: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button onclick="location.href='index.html'" class="back-button">Back</button>
+    </div>
+    <h1>Healthcare Search</h1>
+    <div class="filters" id="container">
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location">
+
+
+        <label for="services">Services:</label>
+        <input type="text" id="services" name="services">
+
+
+        <label for="cost">Cost:</label>
+        <input type="text" id="cost" name="cost">
+
+
+        <button class="button" onclick="searchHealthcare()">Search</button>
+    </div>
+    <div class="results">
+        <ul id="resultsList">
+        </ul>
+    </div>
+    <script>
+        const healthcareData = [
+            { name: 'Healthcare A', location: 'Location A', services: 'Services A', cost: 'Cost A' },
+            { name: 'Healthcare B', location: 'Location B', services: 'Services B', cost: 'Cost B' },
+            { name: 'Healthcare C', location: 'Location C', services: 'Services C', cost: 'Cost C' },
+            // ...
+        ];
+
+
+        function searchHealthcare() {
+            const locationFilter = document.getElementById('location').value;
+            const servicesFilter = document.getElementById('services').value;
+            const costFilter = document.getElementById('cost').value;
+
+
+            const filteredData = healthcareData.filter(healthcare => {
+                return (
+                    (locationFilter ? healthcare.location.includes(locationFilter) : true) &&
+                    (servicesFilter ? healthcare.services.includes(servicesFilter) : true) &&
+                    (costFilter ? healthcare.cost.includes(costFilter) : true)
+                );
+            });
+
+
+            const resultsList = document.getElementById('resultsList');
+            resultsList.innerHTML = '';
+
+
+            filteredData.forEach(healthcare => {
+                const listItem = document.createElement('li');
+                listItem.textContent = healthcare.name;
+                resultsList.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>

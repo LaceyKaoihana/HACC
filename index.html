@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+
+        .header {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+        }
+
+
+        p {
+            margin: 15px auto;
+            width: 80%;
+        }
+
+
+        .para {
+            margin-top: -25px;
+        }
+
+
+        h1{
+            margin-top: -10px;            
+        }
+
+
+        .translate-container {
+            text-align: center;
+            margin-top: -10px;
+        }
+
+
+        .translate-option {
+            margin: 15px;
+        }
+
+
+        .search {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: -30px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Healthify</h1>
+        <button class="search" onclick="location.href='search.html'">Healthcare Search</button>
+    </div>
+
+
+    <div class="para">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur maximus eros turpis, eget dignissim elit placerat in. Curabitur tincidunt libero ac arcu euismod, vitae pellentesque metus posuere. In et arcu mollis, convallis neque vitae, consectetur urna.</p>
+        <p>Morbi ultricies turpis sed ex feugiat, ac lobortis massa auctor. Proin quis euismod urna, eu facilisis turpis. Cras mollis massa ac orci consequat, non consequat turpis tristique. Proin ac lorem ut turpis dapibus feugiat et at est. Suspendisse potenti. Aenean vestibulum massa nisi, vitae malesuada lectus malesuada nec. Curabitur convallis metus justo, ut posuere massa pulvinar eget. Cras aliquet libero eu diam faucibus, nec facilisis lectus facilisis.
+        <p>Vivamus imperdiet lectus nisi, vel commodo libero malesuada eget. Curabitur convallis justo et elit eleifend, nec dapibus mauris dictum. Proin ultricies lorem vitae leo consectetur, nec imperdiet augue interdum. Aenean feugiat enim ac semper consectetur. Curabitur consectetur sapien nisi, et dapibus erat dignissim eget. </p>
+    </div>
+
+
+    <div class="translate-container">
+        <select id="language" onchange="changeLanguage()" class="translate-option">
+            <option value="en">English</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+            <option value="it">Italian</option>
+        </select>
+    </div>
+
+
+    <script>
+        function changeLanguage() {
+            var language = document.getElementById("language").value;
+            var text = document.querySelectorAll('p');
+
+
+            fetch(`https://api.themoviedb.org/3/configuration?api_key=<<API_KEY>>&language=${language}`)
+                .then(response => response.json())
+                .then(data => {
+                    for (var i = 0; i < text.length; i++) {
+                        text[i].innerText = data.messages[i];
+                    }
+                });
+        }
+    </script>
+</body>
+</html>
